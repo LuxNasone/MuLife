@@ -7,7 +7,7 @@ using namespace std;
 
 int main() {
 
-    ifstream FIFO("FIFOread_Take0.txt");
+    ifstream FIFO("/home/luxnasin/FIFOread_Take3.txt");
 
     vector<double> CHv, CLKv;
 
@@ -23,38 +23,33 @@ int main() {
 
     }
 
-    int lenCH = CHv.size();
-
-    int lenCLK = CLKv.size();
+    int N = CLKv.size();
 
     double a = 4.98892e-3;
 
-
-    for (int i = 1 ; i < lenCLK ; i++){
-
-        CLKv[i] *= a;
-
-    }
-
-    for (int i = 1 ; i < lenCLK ; i++){
+    for (int i = 1 ; i < N ; i++){
 
         if (CHv[i] == 1){
 
-            double t_start = CLKv[i];
+            int j = i+1;
+            
+            while (j < N && CHv[j] != 1){
+                
+                double diff = CLKv[j]-CLKv[i];
 
-            int j = i + 1;
+                if (CHv[j] == 2 && diff > 8){
 
-            while (j < lenCH && CHv[j] == 1) {
+                    h->Fill(a * diff);
 
-                j++;
+                   break; 
 
-            }
+                }
 
-            if (j < lenCH && CHv[j] == 2){
+                else {
 
-                double tau = CLKv[j] - CLKv[i];
+                    j++;
 
-                h->Fill(tau);
+                }
 
             }
 
@@ -80,7 +75,7 @@ int main() {
 
 int Calibration() {
 
-    ifstream FIFO("FIFOread_Cal2.txt");
+    ifstream FIFO("home/luxnasin/FIFOread_Cal2.txt");
 
     vector<double> CHv, CLKv;
 
@@ -146,7 +141,7 @@ int Calibration() {
 
 int Delay() {
 
-    ifstream FIFO("FIFOread_CalDoppia.txt");
+    ifstream FIFO("home/luxnasin/FIFOread_CalDoppia.txt");
 
     vector<double> CHv, CLKv;
 
