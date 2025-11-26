@@ -19,7 +19,8 @@ release = '0.1'
 
 extensions = [ "sphinx.ext.autodoc",
                "sphinx.ext.napoleon",
-               "sphinx_autodoc_typehints"]
+               "sphinx_autodoc_typehints"
+               "breathe"]
 
 
 templates_path = ['_templates']
@@ -32,3 +33,9 @@ exclude_patterns = []
 
 html_theme = 'alabaster'
 html_static_path = ['_static']
+
+breathe_projects = {
+    "MuLife": "../doxygen/xml"
+}
+
+breathe_default_project = "MuLife"
